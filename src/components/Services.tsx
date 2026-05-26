@@ -5,24 +5,24 @@ import styles from "./Sections.module.css";
 
 const services = [
   {
-    title: "Emergency repairs",
-    desc: "Burst pipes, backups, and leaks — rapid dispatch day or night.",
-    icon: "🚨",
-  },
-  {
-    title: "Drain cleaning",
-    desc: "Hydro-jetting and camera inspections for stubborn clogs.",
+    title: "Drain & sewer",
+    desc: "Blocked drains, sewer backups, and damaged pipe replacement in one visit.",
     icon: "🚿",
   },
   {
-    title: "Water heaters",
-    desc: "Tank, tankless install, repair, and flush services.",
-    icon: "♨️",
+    title: "Leaks & faucets",
+    desc: "Leaking taps, supply lines, and fixtures repaired with clear upfront pricing.",
+    icon: "💧",
   },
   {
-    title: "Remodels",
-    desc: "Bathrooms, kitchens, and repiping with clean workmanship.",
-    icon: "🏠",
+    title: "Showers & valves",
+    desc: "Cartridge replacements, gasket repairs, and shower handles — often without tearing tile.",
+    icon: "🛁",
+  },
+  {
+    title: "Repipes & installs",
+    desc: "Damaged piping replaced and new fixtures installed for kitchens and baths.",
+    icon: "🔧",
   },
 ];
 

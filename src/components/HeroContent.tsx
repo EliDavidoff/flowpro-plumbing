@@ -1,5 +1,8 @@
+import { businessProfile, formatPhoneDisplay } from "../data/business";
 import MobileNav from "./MobileNav";
 import styles from "./HeroContent.module.css";
+
+const phoneDisplay = formatPhoneDisplay(businessProfile.phone);
 
 export default function HeroContent() {
   return (
@@ -9,7 +12,7 @@ export default function HeroContent() {
           <span className={styles.logoIcon} aria-hidden>
             ◆
           </span>
-          FlowPro
+          {businessProfile.shortName}
         </div>
         <nav className={styles.links} aria-label="Primary">
           <a href="#services">Services</a>
@@ -24,21 +27,22 @@ export default function HeroContent() {
 
       <div className={styles.copy}>
         <p className={styles.eyebrow}>
-          <span className={styles.badge}>Licensed & insured</span>
-          <span className={styles.eyebrowText}>24/7 emergency response</span>
+          <span className={styles.badge}>Licensed plumber</span>
+          <span className={styles.eyebrowText}>{businessProfile.serviceArea}</span>
         </p>
         <h1 className={styles.headline}>
-          Expert plumbing,
+          Dallas plumbing,
           <br />
-          <span className={styles.accent}>flowing smoothly.</span>
+          <span className={styles.accent}>done right the first time.</span>
         </h1>
         <p className={styles.sub}>
-          From burst pipes to full bathroom remodels — trusted local pros with
-          same-day service across the metro area.
+          From clogged drains and leaking faucets to shower valves and repipes —
+          {businessProfile.shortName} serves homeowners across Dallas with clear
+          pricing and reliable workmanship.
         </p>
         <div className={styles.actions}>
-          <a href="tel:+15551234567" className={styles.primaryBtn}>
-            Call (555) 123-4567
+          <a href={`tel:${businessProfile.phone}`} className={styles.primaryBtn}>
+            Call {phoneDisplay}
           </a>
           <a href="#services" className={styles.secondaryBtn}>
             View services
@@ -46,16 +50,16 @@ export default function HeroContent() {
         </div>
         <ul className={styles.stats} aria-label="Highlights">
           <li>
-            <strong>15+</strong>
-            <span>Years experience</span>
+            <strong>{businessProfile.rating}</strong>
+            <span>Google rating</span>
           </li>
           <li>
-            <strong>4.9</strong>
-            <span>Average rating</span>
+            <strong>{businessProfile.reviewCount}</strong>
+            <span>Google reviews</span>
           </li>
           <li>
-            <strong>2hr</strong>
-            <span>Avg. response time</span>
+            <strong>8–5</strong>
+            <span>Mon–Sat hours</span>
           </li>
         </ul>
       </div>

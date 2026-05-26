@@ -1,25 +1,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { businessProfile, businessReviews } from "../data/business";
 import ScrollReveal from "./ScrollReveal";
 import styles from "./Sections.module.css";
-
-const reviews = [
-  {
-    name: "Sarah M.",
-    text: "Came within 90 minutes for a burst pipe. Professional, fair price, and spotless cleanup.",
-    stars: 5,
-  },
-  {
-    name: "James T.",
-    text: "Installed our tankless unit perfectly. Walked us through maintenance too.",
-    stars: 5,
-  },
-  {
-    name: "Linda K.",
-    text: "Best drain cleaning we’ve had — camera showed the problem and it’s been clear since.",
-    stars: 5,
-  },
-];
 
 export default function Reviews() {
   const listRef = useRef<HTMLDivElement>(null);
@@ -29,7 +12,10 @@ export default function Reviews() {
     <ScrollReveal id="reviews" className={styles.section} parallax={40}>
       <div className={styles.inner}>
         <p className={styles.kicker}>Reviews</p>
-        <h2 className={styles.heading}>Rated highly on Google</h2>
+        <h2 className={styles.heading}>
+          {businessProfile.rating} stars on Google ({businessProfile.reviewCount}{" "}
+          reviews)
+        </h2>
         <motion.div
           ref={listRef}
           className={styles.reviewList}
@@ -39,7 +25,7 @@ export default function Reviews() {
             visible: { transition: { staggerChildren: 0.12 } },
           }}
         >
-          {reviews.map((r) => (
+          {businessReviews.map((r) => (
             <motion.blockquote
               key={r.name}
               className={styles.reviewCard}

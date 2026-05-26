@@ -1,4 +1,8 @@
-import { businessProfile } from "../data/business";
+import {
+  businessPhotos,
+  businessProfile,
+  formatPhoneDisplay,
+} from "../data/business";
 import ScrollReveal from "./ScrollReveal";
 import styles from "./GoogleBusinessCard.module.css";
 
@@ -24,21 +28,18 @@ function StarRow({ rating }: { rating: number }) {
 
 export default function GoogleBusinessCard() {
   const b = businessProfile;
-  const phoneDisplay = b.phone.replace(/^\+1/, "").replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+  const phoneDisplay = formatPhoneDisplay(b.phone);
+  const coverPhoto = businessPhotos[0];
 
   return (
     <ScrollReveal id="contact" className={styles.section} parallax={56}>
       <div className={styles.wrap}>
         <p className={styles.kicker}>Find us on Google</p>
-        <h2 className={styles.title}>Your local plumbing team</h2>
+        <h2 className={styles.title}>Visit {b.shortName} in Dallas</h2>
 
         <article className={styles.card} aria-label={`${b.name} on Google`}>
           <div className={styles.cover}>
-            {b.photoUrl ? (
-              <img src={b.photoUrl} alt="" className={styles.coverImg} />
-            ) : (
-              <div className={styles.coverPlaceholder} aria-hidden />
-            )}
+            <img src={coverPhoto.src} alt="" className={styles.coverImg} />
             <span className={styles.googleBadge}>
               <span className={styles.googleG}>G</span> Business
             </span>
@@ -57,7 +58,9 @@ export default function GoogleBusinessCard() {
 
             <ul className={styles.meta}>
               <li>
-                <span className={styles.metaIcon} aria-hidden>📍</span>
+                <span className={styles.metaIcon} aria-hidden>
+                  📍
+                </span>
                 <span>
                   {b.address}
                   <br />
@@ -65,13 +68,17 @@ export default function GoogleBusinessCard() {
                 </span>
               </li>
               <li>
-                <span className={styles.metaIcon} aria-hidden>🕐</span>
+                <span className={styles.metaIcon} aria-hidden>
+                  🕐
+                </span>
                 <span>
-                  <strong className={styles.open}>{b.status}</strong> · {b.hours}
+                  <strong className={styles.open}>{b.status}</strong> · {b.hoursDetail}
                 </span>
               </li>
               <li>
-                <span className={styles.metaIcon} aria-hidden>📞</span>
+                <span className={styles.metaIcon} aria-hidden>
+                  📞
+                </span>
                 <a href={`tel:${b.phone}`}>{phoneDisplay}</a>
               </li>
             </ul>
@@ -89,21 +96,16 @@ export default function GoogleBusinessCard() {
                 Directions
               </a>
               <a
-                href={b.website}
+                href={b.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.actionSecondary}
               >
-                Website
+                Google
               </a>
             </div>
           </div>
         </article>
-
-        <p className={styles.hint}>
-          Send your Google Business card screenshot — we’ll match name, photo, hours, and reviews
-          exactly.
-        </p>
       </div>
     </ScrollReveal>
   );

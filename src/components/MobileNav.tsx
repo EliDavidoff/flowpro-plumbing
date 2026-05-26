@@ -1,4 +1,5 @@
 import { useEffect, useId, useState } from "react";
+import { businessProfile } from "../data/business";
 import styles from "./MobileNav.module.css";
 
 const links = [
@@ -23,7 +24,7 @@ export default function MobileNav() {
 
   return (
     <div className={styles.wrap}>
-      <a href="tel:+15551234567" className={styles.callBtn}>
+      <a href={`tel:${businessProfile.phone}`} className={styles.callBtn}>
         Call
       </a>
       <button

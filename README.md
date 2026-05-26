@@ -1,6 +1,6 @@
-# FlowPro Plumbing
+# True Line Plumbing Services
 
-Modern plumbing company marketing site with a React Three Fiber hero scene.
+Marketing site for True Line Plumbing Services (Dallas, TX) with a React Three Fiber hero scene.
 
 ## Develop
 
