@@ -1,0 +1,14 @@
+{
+  "git.autorefresh": true,
+  "git.ignoreLimitWarning": true,
+  "git.untrackedChanges": "mixed",
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/tsconfig.tsbuildinfo": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true
+  }
+}
