@@ -1,0 +1,244 @@
+.section {
+  padding: 3.5rem max(1rem, env(safe-area-inset-right))
+    max(4rem, env(safe-area-inset-bottom))
+    max(1rem, env(safe-area-inset-left));
+  background: linear-gradient(180deg, #061018 0%, #0a1628 40%, #061018 100%);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding: 5rem clamp(1.25rem, 4vw, 3rem) 6rem;
+  }
+}
+
+.wrap {
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+.kicker {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #67e8f9;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-family: "Outfit", sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  color: #f0f9ff;
+}
+
+.card {
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #fff;
+  color: #1f2937;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.2),
+    0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+.cover {
+  position: relative;
+  height: 8.5rem;
+  background: linear-gradient(135deg, #0d2847 0%, #0891b2 100%);
+}
+
+.coverImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.coverPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, #0e7490 0%, #22d3ee 50%, #0d2847 100%);
+  opacity: 0.9;
+}
+
+.googleBadge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #374151;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.googleG {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.65rem;
+  color: #fff;
+  background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+}
+
+.body {
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.header {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.name {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.2rem;
+}
+
+.category {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.ratingRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 0.05rem;
+  letter-spacing: -0.05em;
+}
+
+.starFull {
+  color: #f59e0b;
+}
+
+.starHalf {
+  color: #fcd34d;
+  opacity: 0.7;
+}
+
+.starEmpty {
+  color: #d1d5db;
+}
+
+.ratingNum {
+  font-weight: 700;
+  color: #111827;
+}
+
+.reviews {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.meta {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.meta li {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+}
+
+.metaIcon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.meta a {
+  color: #0891b2;
+  font-weight: 500;
+}
+
+.meta a:hover {
+  text-decoration: underline;
+}
+
+.open {
+  color: #059669;
+  font-weight: 600;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+@media (min-width: 400px) {
+  .actions {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.actionPrimary,
+.actionSecondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: background 0.2s, color 0.2s;
+}
+
+.actionPrimary {
+  background: #0891b2;
+  color: #fff;
+}
+
+.actionPrimary:hover {
+  background: #0e7490;
+}
+
+.actionSecondary {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.actionSecondary:hover {
+  background: #e5e7eb;
+}
+
+.hint {
+  margin-top: 1.25rem;
+  font-size: 0.8rem;
+  color: rgba(232, 244, 252, 0.45);
+  text-align: center;
+  line-height: 1.5;
+}
