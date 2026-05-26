@@ -5,16 +5,22 @@ import * as THREE from "three";
 type WaterDropletsProps = {
   origin: [number, number, number];
   count?: number;
+  mobile?: boolean;
 };
 
 export default function WaterDroplets({
   origin,
   count = 28,
+  mobile = false,
 }: WaterDropletsProps) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
-  const geometry = useMemo(() => new THREE.SphereGeometry(1, 10, 10), []);
+  const dropletSegs = mobile ? 12 : 16;
+  const geometry = useMemo(
+    () => new THREE.SphereGeometry(1, dropletSegs, dropletSegs),
+    [dropletSegs]
+  );
   const material = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({

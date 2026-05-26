@@ -48,10 +48,6 @@ export const businessPhotos: BusinessPhoto[] = [
     src: "/images/business/featured.jpg",
     alt: "True Line Plumbing Services — Google Business photo",
   },
-  {
-    src: "/images/business/work-1.jpg",
-    alt: "True Line Plumbing Services — pipe and fixture repair",
-  },
 ];
 
 export const businessReviews: BusinessReview[] = [

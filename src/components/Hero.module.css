@@ -7,6 +7,14 @@
   height: 155vh;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .scrollSpace,
+  .scrollSpaceMobile {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
 .sticky {
   position: sticky;
   top: 0;
@@ -22,6 +30,8 @@
   inset: 0;
   z-index: 0;
   will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .canvasFade {
@@ -57,13 +67,15 @@
   .canvasWrap {
     height: 48%;
     bottom: auto;
+    will-change: auto;
+  }
+
+  .sticky {
+    will-change: opacity;
   }
 
   .contentSlot {
     max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
   }
 
   .vignette {

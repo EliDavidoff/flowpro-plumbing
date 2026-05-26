@@ -51,11 +51,13 @@ export default function ScrollReveal({
     reducedMotion ? [1, 1, 1, 1, 1] : [0.15, 0.55, 1, 1, 0.35]
   );
 
+  const snapClass = reducedMotion ? "" : "snap-section";
+
   return (
     <motion.section
       ref={ref}
       id={id}
-      className={className}
+      className={[className, snapClass].filter(Boolean).join(" ")}
       style={reducedMotion ? style : { y, opacity, ...style }}
       initial={reducedMotion ? false : { opacity: 0, y: travel * 0.6 }}
       animate={

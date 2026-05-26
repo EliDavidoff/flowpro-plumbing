@@ -18,7 +18,7 @@ export default function FaucetAssembly({
 }: FaucetProps) {
   const spout = useRef<THREE.Group>(null);
   const chrome = chromeMaterial;
-  const segs = mobile ? 20 : 32;
+  const segs = mobile ? 24 : 32;
 
   useFrame((state) => {
     if (!spout.current) return;

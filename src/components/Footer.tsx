@@ -4,7 +4,7 @@ import styles from "./Footer.module.css";
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} snap-section--footer`}>
       <p>
         © {year} {businessProfile.name}. Licensed & insured.
       </p>

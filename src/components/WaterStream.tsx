@@ -25,11 +25,11 @@ export default function WaterStream({
   return (
     <group position={origin}>
       <mesh ref={stream} position={[0, -0.35, 0]}>
-        <cylinderGeometry args={[0.035, 0.055, 0.7, mobile ? 8 : 16]} />
+        <cylinderGeometry args={[0.035, 0.055, 0.7, mobile ? 12 : 16]} />
         <primitive object={mat.current} attach="material" />
       </mesh>
       <mesh position={[0, -0.72, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <circleGeometry args={[0.12, mobile ? 16 : 24]} />
+        <circleGeometry args={[0.12, mobile ? 20 : 24]} />
         <meshStandardMaterial
           color="#67e8f9"
           emissive="#22d3ee"

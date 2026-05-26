@@ -6,7 +6,7 @@ const phoneDisplay = formatPhoneDisplay(businessProfile.phone);
 
 export default function HeroContent() {
   return (
-    <div className={styles.content}>
+    <div className={styles.shell}>
       <header className={styles.nav}>
         <div className={styles.logo}>
           <span className={styles.logoIcon} aria-hidden>

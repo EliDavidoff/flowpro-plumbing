@@ -104,7 +104,7 @@ function TJunction({ position }: { position: [number, number, number] }) {
 }
 
 export default function PipeNetwork({ mobile = false }: { mobile?: boolean }) {
-  const pipeSegs = mobile ? 12 : 28;
+  const pipeSegs = mobile ? 18 : 28;
   const segments = useMemo(() => {
     const v = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
     return [

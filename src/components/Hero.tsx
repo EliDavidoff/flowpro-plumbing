@@ -56,6 +56,7 @@ export default function Hero() {
 
   return (
     <section
+      id="hero"
       ref={scrollRef}
       className={
         isMobile ? `${styles.scrollSpace} ${styles.scrollSpaceMobile}` : styles.scrollSpace

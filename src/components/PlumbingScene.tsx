@@ -96,6 +96,7 @@ export default function PlumbingScene({
         <WaterDroplets
           origin={[streamOrigin[0], streamOrigin[1] - 0.15, streamOrigin[2]]}
           count={mobile ? 16 : 36}
+          mobile={mobile}
         />
         <GlowOrb position={[-0.55, 0.65, -0.45]} mobile={mobile} />
         {!mobile && (

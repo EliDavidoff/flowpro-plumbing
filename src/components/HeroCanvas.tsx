@@ -16,13 +16,14 @@ export default function HeroCanvas({ reducedMotion = false }: HeroCanvasProps) {
   return (
     <Canvas
       camera={{ position: [0, 0.9, isMobile ? 6.5 : 5.8], fov: isMobile ? 54 : 48 }}
-      dpr={isMobile ? 1 : [1, 2]}
-      performance={{ min: 0.5 }}
+      dpr={[1, 2]}
+      performance={{ min: isMobile ? 0.55 : 0.5 }}
       shadows={!isMobile}
       gl={{
-        antialias: !isMobile,
+        antialias: true,
         alpha: false,
-        powerPreference: isMobile ? "low-power" : "high-performance",
+        powerPreference: "high-performance",
+        stencil: false,
       }}
       style={{ background: "transparent", touchAction: "pan-y" }}
     >
