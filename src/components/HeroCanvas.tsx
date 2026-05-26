@@ -1,16 +1,24 @@
 import { Canvas } from "@react-three/fiber";
+import { Environment } from "@react-three/drei";
 import { useIsMobile } from "../hooks/useMediaQuery";
 import PlumbingScene from "./PlumbingScene";
+import SceneBackgroundFade from "./SceneBackgroundFade";
 import SceneCamera from "./SceneCamera";
+import ScrollLighting from "./ScrollLighting";
 
-export default function HeroCanvas() {
+type HeroCanvasProps = {
+  reducedMotion?: boolean;
+};
+
+export default function HeroCanvas({ reducedMotion = false }: HeroCanvasProps) {
   const isMobile = useIsMobile();
 
   return (
     <Canvas
-      camera={{ position: [0, 0.8, isMobile ? 6.2 : 5.5], fov: isMobile ? 56 : 52 }}
+      camera={{ position: [0, 0.9, isMobile ? 6.5 : 5.8], fov: isMobile ? 54 : 48 }}
       dpr={isMobile ? 1 : [1, 2]}
       performance={{ min: 0.5 }}
+      shadows={!isMobile}
       gl={{
         antialias: !isMobile,
         alpha: false,
@@ -18,16 +26,13 @@ export default function HeroCanvas() {
       }}
       style={{ background: "transparent", touchAction: "pan-y" }}
     >
-      <color attach="background" args={["#0d2847"]} />
-      <ambientLight intensity={isMobile ? 1.2 : 1.1} />
-      <hemisphereLight args={["#a5f3fc", "#0f172a", 1.2]} />
-      <directionalLight position={[5, 6, 4]} intensity={2} color="#ffffff" />
+      <SceneBackgroundFade reducedMotion={reducedMotion} />
+      <ScrollLighting mobile={isMobile} reducedMotion={reducedMotion} />
       {!isMobile && (
-        <directionalLight position={[-2, 4, 6]} intensity={0.8} color="#67e8f9" />
+        <Environment preset="warehouse" environmentIntensity={0.35} />
       )}
-      <pointLight position={[2.5, 1.5, 3]} intensity={2} color="#22d3ee" distance={12} />
       <SceneCamera />
-      <PlumbingScene mobile={isMobile} />
+      <PlumbingScene mobile={isMobile} reducedMotion={reducedMotion} />
     </Canvas>
   );
 }

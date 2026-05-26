@@ -24,6 +24,11 @@
   will-change: transform;
 }
 
+.canvasFade {
+  width: 100%;
+  height: 100%;
+}
+
 .canvasWrap canvas {
   display: block;
   width: 100% !important;
@@ -33,7 +38,7 @@
 
 .contentSlot {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   min-height: 100vh;
   min-height: 100dvh;
   max-width: 42rem;
@@ -77,10 +82,24 @@
   }
 }
 
-.vignette {
+.scrollOverlay {
   position: absolute;
   inset: 0;
   z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(6, 16, 24, 0.4) 40%,
+    rgba(6, 16, 24, 0.95) 100%
+  );
+  transition: opacity 0.05s linear;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   pointer-events: none;
   background: linear-gradient(
       90deg,

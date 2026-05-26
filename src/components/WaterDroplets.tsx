@@ -14,26 +14,31 @@ export default function WaterDroplets({
   const mesh = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
-  const geometry = useMemo(() => new THREE.SphereGeometry(1, 8, 8), []);
+  const geometry = useMemo(() => new THREE.SphereGeometry(1, 10, 10), []);
   const material = useMemo(
     () =>
-      new THREE.MeshStandardMaterial({
-        color: "#67e8f9",
-        emissive: "#0891b2",
-        emissiveIntensity: 0.5,
-        metalness: 0.2,
-        roughness: 0.3,
+      new THREE.MeshPhysicalMaterial({
+        color: "#a5f3fc",
+        emissive: "#22d3ee",
+        emissiveIntensity: 0.55,
+        metalness: 0.15,
+        roughness: 0.08,
+        transmission: 0.4,
+        thickness: 0.3,
+        transparent: true,
+        opacity: 0.9,
       }),
     []
   );
 
   const particles = useMemo(() => {
     return Array.from({ length: count }, () => ({
-      x: (Math.random() - 0.5) * 0.25,
-      speed: 0.4 + Math.random() * 0.8,
-      scale: 0.02 + Math.random() * 0.03,
+      x: (Math.random() - 0.5) * 0.35,
+      speed: 0.5 + Math.random() * 0.9,
+      scale: 0.018 + Math.random() * 0.038,
       phase: Math.random() * Math.PI * 2,
-      z: (Math.random() - 0.5) * 0.15,
+      z: (Math.random() - 0.5) * 0.2,
+      wobble: 0.02 + Math.random() * 0.04,
     }));
   }, [count]);
 
@@ -42,13 +47,14 @@ export default function WaterDroplets({
     const t = state.clock.elapsedTime;
 
     particles.forEach((p, i) => {
-      const fall = ((t * p.speed + p.phase) % 2.2) - 1;
+      const fall = ((t * p.speed + p.phase) % 2.4) - 1.1;
       dummy.position.set(
-        origin[0] + p.x,
+        origin[0] + p.x + Math.sin(t * 3 + p.phase) * p.wobble,
         origin[1] - fall,
         origin[2] + p.z
       );
-      dummy.scale.setScalar(p.scale);
+      const stretch = 1 + Math.sin(t * 8 + i) * 0.2;
+      dummy.scale.set(p.scale * stretch, p.scale * 1.35, p.scale * stretch);
       dummy.updateMatrix();
       mesh.current!.setMatrixAt(i, dummy.matrix);
     });

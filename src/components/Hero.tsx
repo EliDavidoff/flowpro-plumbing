@@ -12,6 +12,12 @@ import HeroContent from "./HeroContent";
 import ScrollHint from "./ScrollHint";
 import styles from "./Hero.module.css";
 
+function fadeOpacity(progress: number, start = 0, end = 0.75) {
+  if (progress <= start) return 1;
+  if (progress >= end) return 0;
+  return 1 - (progress - start) / (end - start);
+}
+
 export default function Hero() {
   const scrollRef = useRef<HTMLElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -23,13 +29,10 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  useMotionValueEvent(scrollYProgress, "change", setScrollProgress);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setScrollProgress(v);
+  });
 
-  const heroOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.55, 0.95],
-    reducedMotion ? [1, 1, 1] : [1, 0.5, 0]
-  );
   const heroY = useTransform(
     scrollYProgress,
     [0, 1],
@@ -45,26 +48,40 @@ export default function Hero() {
     [0, 1],
     reducedMotion ? [0, 0] : [0, isMobile ? 24 : 90]
   );
-  const vignetteOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.6]);
+
+  const contentOpacity = reducedMotion ? 1 : fadeOpacity(scrollProgress, 0.05, 0.7);
+  const canvasOpacity = reducedMotion ? 1 : fadeOpacity(scrollProgress, 0, 0.55);
+  const overlayOpacity = reducedMotion ? 0 : Math.min(0.92, scrollProgress * 1.15);
+  const vignetteOpacity = reducedMotion ? 1 : 0.6 + scrollProgress * 0.4;
 
   return (
     <section
       ref={scrollRef}
-      className={isMobile ? `${styles.scrollSpace} ${styles.scrollSpaceMobile}` : styles.scrollSpace}
+      className={
+        isMobile ? `${styles.scrollSpace} ${styles.scrollSpaceMobile}` : styles.scrollSpace
+      }
       aria-label="Hero"
+      style={{ ["--hero-scroll" as string]: scrollProgress }}
     >
       <HeroScrollContext.Provider value={scrollProgress}>
         <motion.div
           className={styles.sticky}
-          style={{ opacity: heroOpacity, y: heroY, scale: heroScale }}
+          style={{ y: heroY, scale: heroScale }}
         >
-          <div className={styles.contentSlot}>
+          <motion.div className={styles.canvasWrap} style={{ x: canvasX }}>
+            <div className={styles.canvasFade} style={{ opacity: canvasOpacity }}>
+              <HeroCanvas reducedMotion={reducedMotion} />
+            </div>
+          </motion.div>
+          <div className={styles.contentSlot} style={{ opacity: contentOpacity }}>
             <HeroContent />
           </div>
-          <motion.div className={styles.canvasWrap} style={{ x: canvasX }}>
-            <HeroCanvas />
-          </motion.div>
-          <motion.div
+          <div
+            className={styles.scrollOverlay}
+            style={{ opacity: overlayOpacity }}
+            aria-hidden
+          />
+          <div
             className={styles.vignette}
             style={{ opacity: vignetteOpacity }}
             aria-hidden

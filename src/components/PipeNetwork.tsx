@@ -1,18 +1,11 @@
 import { useMemo } from "react";
 import * as THREE from "three";
-
-const PIPE_COLOR = "#f8fafc";
-const PIPE_METAL = {
-  metalness: 0.75,
-  roughness: 0.15,
-  emissive: "#38bdf8",
-  emissiveIntensity: 0.45,
-};
+import { pipeMaterial, chromeMaterial } from "../materials/plumbingMaterials";
 
 function Pipe({
   start,
   end,
-  radius = 0.14,
+  radius = 0.15,
   segments = 24,
 }: {
   start: THREE.Vector3;
@@ -37,9 +30,9 @@ function Pipe({
   }, [start, end]);
 
   return (
-    <mesh position={position} rotation={rotation}>
+    <mesh position={position} rotation={rotation} castShadow>
       <cylinderGeometry args={[radius, radius, length, segments]} />
-      <meshStandardMaterial color={PIPE_COLOR} {...PIPE_METAL} />
+      <meshStandardMaterial {...pipeMaterial} />
     </mesh>
   );
 }
@@ -47,16 +40,25 @@ function Pipe({
 function Elbow({
   position,
   rotation,
-  radius = 0.14,
+  radius = 0.15,
 }: {
   position: [number, number, number];
   rotation: [number, number, number];
   radius?: number;
 }) {
   return (
-    <mesh position={position} rotation={rotation}>
-      <torusGeometry args={[0.35, radius, 16, 32, Math.PI / 2]} />
-      <meshStandardMaterial color={PIPE_COLOR} {...PIPE_METAL} />
+    <mesh position={position} rotation={rotation} castShadow>
+      <torusGeometry args={[0.32, radius, 16, 32, Math.PI / 2]} />
+      <meshStandardMaterial {...pipeMaterial} />
+    </mesh>
+  );
+}
+
+function Flange({ position }: { position: [number, number, number] }) {
+  return (
+    <mesh position={position} castShadow>
+      <cylinderGeometry args={[0.22, 0.22, 0.05, 20]} />
+      <meshStandardMaterial {...chromeMaterial} />
     </mesh>
   );
 }
@@ -64,34 +66,57 @@ function Elbow({
 function Valve({ position }: { position: [number, number, number] }) {
   return (
     <group position={position}>
-      <mesh>
-        <cylinderGeometry args={[0.18, 0.18, 0.08, 24]} />
-        <meshStandardMaterial color="#cbd5e1" metalness={0.9} roughness={0.2} />
+      <mesh castShadow>
+        <cylinderGeometry args={[0.2, 0.2, 0.1, 24]} />
+        <meshStandardMaterial {...chromeMaterial} />
       </mesh>
-      <mesh position={[0, 0.15, 0]} rotation={[0, 0, Math.PI / 2]}>
-        <cylinderGeometry args={[0.04, 0.04, 0.35, 12]} />
-        <meshStandardMaterial color="#e2e8f0" metalness={0.85} roughness={0.25} />
+      <mesh position={[0, 0.18, 0]} rotation={[0, 0, Math.PI / 2]} castShadow>
+        <cylinderGeometry args={[0.045, 0.045, 0.4, 12]} />
+        <meshStandardMaterial color="#e2e8f0" metalness={0.9} roughness={0.2} />
       </mesh>
-      <mesh position={[0, 0.32, 0]}>
-        <sphereGeometry args={[0.06, 16, 16]} />
-        <meshStandardMaterial color="#22d3ee" metalness={0.6} roughness={0.3} />
+      <mesh position={[0, 0.38, 0]} castShadow>
+        <sphereGeometry args={[0.07, 16, 16]} />
+        <meshStandardMaterial
+          color="#22d3ee"
+          emissive="#0891b2"
+          emissiveIntensity={0.5}
+          metalness={0.7}
+          roughness={0.25}
+        />
+      </mesh>
+    </group>
+  );
+}
+
+function TJunction({ position }: { position: [number, number, number] }) {
+  return (
+    <group position={position}>
+      <mesh castShadow>
+        <sphereGeometry args={[0.18, 20, 20]} />
+        <meshStandardMaterial {...pipeMaterial} />
+      </mesh>
+      <mesh position={[0, 0.2, 0]} castShadow>
+        <cylinderGeometry args={[0.12, 0.12, 0.15, 16]} />
+        <meshStandardMaterial {...pipeMaterial} />
       </mesh>
     </group>
   );
 }
 
 export default function PipeNetwork({ mobile = false }: { mobile?: boolean }) {
-  const pipeSegs = mobile ? 12 : 24;
+  const pipeSegs = mobile ? 12 : 28;
   const segments = useMemo(() => {
     const v = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
     return [
-      { start: v(0, -1.5, 0), end: v(0, 0.5, 0) },
-      { start: v(0, 0.5, 0), end: v(1.2, 0.5, 0) },
-      { start: v(1.2, 0.5, 0), end: v(1.2, 1.2, 0) },
-      { start: v(-1.2, -0.3, 0.2), end: v(0, -0.3, 0.2) },
-      { start: v(-1.2, -0.3, 0.2), end: v(-1.2, 0.8, 0.2) },
-      { start: v(0, 0.5, 0), end: v(0, 0.5, 0.8) },
-      { start: v(0, 0.5, 0.8), end: v(-0.8, 0.5, 0.8) },
+      { start: v(0, -1.35, 0), end: v(0, 0.55, 0) },
+      { start: v(0, 0.55, 0), end: v(1.15, 0.55, 0) },
+      { start: v(1.15, 0.55, 0), end: v(1.15, 1.15, 0) },
+      { start: v(-1.15, -0.25, 0.15), end: v(0, -0.25, 0.15) },
+      { start: v(-1.15, -0.25, 0.15), end: v(-1.15, 0.75, 0.15) },
+      { start: v(0, 0.55, 0), end: v(0, 0.55, 0.75) },
+      { start: v(0, 0.55, 0.75), end: v(-0.85, 0.55, 0.75) },
+      { start: v(1.15, 0.55, 0), end: v(1.15, 0.55, -0.55) },
+      { start: v(1.15, 0.55, -0.55), end: v(0.5, 0.55, -0.55) },
     ];
   }, []);
 
@@ -100,10 +125,15 @@ export default function PipeNetwork({ mobile = false }: { mobile?: boolean }) {
       {segments.map((seg, i) => (
         <Pipe key={i} start={seg.start} end={seg.end} segments={pipeSegs} />
       ))}
-      <Elbow position={[1.2, 0.85, 0]} rotation={[0, 0, -Math.PI / 2]} />
-      <Elbow position={[-1.2, 0.25, 0.2]} rotation={[Math.PI / 2, 0, 0]} />
-      <Valve position={[0.6, 0.5, 0]} />
-      <Valve position={[-0.6, 0.5, 0.8]} />
+      <Elbow position={[1.15, 0.9, 0]} rotation={[0, 0, -Math.PI / 2]} />
+      <Elbow position={[-1.15, 0.2, 0.15]} rotation={[Math.PI / 2, 0, 0]} />
+      <Elbow position={[1.15, 0.55, -0.55]} rotation={[0, Math.PI / 2, 0]} />
+      <Flange position={[0, -1.35, 0]} />
+      <Flange position={[0, 0.55, 0]} />
+      <Flange position={[1.15, 0.55, 0]} />
+      <TJunction position={[0, 0.55, 0]} />
+      <Valve position={[0.65, 0.55, 0]} />
+      <Valve position={[-0.65, 0.55, 0.75]} />
     </group>
   );
 }
